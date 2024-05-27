@@ -1,0 +1,9 @@
+{
+    "server-component": {
+        "welcome": "สวัสดี"
+    },
+    "counter": {
+        "increment": "เพิ่ม",
+        "decrement": "ลด"
+    }
+}

@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  ENVIRONMENT: UAT
+kind: ConfigMap
+metadata:
+  name: ats-app
+  labels:
+    app: ats-app
