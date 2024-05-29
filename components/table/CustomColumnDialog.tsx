@@ -1,6 +1,6 @@
 import { Dialog, DialogTitle, Checkbox, Box, DialogContent, List, ListItem, IconButton, ListItemIcon, ListItemButton, ListItemText, DialogActions } from "@mui/material";
 import { GridColDef, GridValidRowModel } from "@mui/x-data-grid";
-import { useState, useEffect, forwardRef } from "react";
+import { useState, useEffect, forwardRef, useContext } from "react";
 import ActionBtn from "../button/ActionBtn";
 import { CustomTableColumnType } from "./Table2";
 
@@ -13,6 +13,7 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
 import { ReactSortable, Sortable, Store } from "react-sortablejs";
 import { Clear } from "@mui/icons-material";
+import IAccount from "#/types/account/IAccount";
 
 // const ListRef = forwardRef<HTMLUListElement, any>((props, ref) => {
 //   return <List ref={ref} sx={{ bgcolor: 'background.paper' }} className=" w-full py-0">{props.children}</List>;
@@ -34,6 +35,9 @@ export const CustomColumnDialog = <R extends GridValidRowModel>(props: CustomCol
 
   const selectedColumns = customColumns.filter(col => col.show)?.sort((a, b) => a.order - b.order)
   const unSelectedColumns = customColumns.filter(col => !col.show)?.sort((a, b) => a.order - b.order)
+
+  //added by po
+  // const rows = useContext(rows);
 
   useEffect(() => {
     // console.log("[CustomColumnDialog] @useEffect[columns] columns >>>", columns)

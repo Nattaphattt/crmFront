@@ -31,6 +31,7 @@ export default function Table2WithSearch<R extends GridValidRowModel>({
   ...table2Props
 }: Table2WithSearchProps & Table2Props<R>) {
   const searchTypesOptions = table2Props.columns
+  const [hiddenColumns, setHiddenColumns] = useState<{ [field: string]: boolean }>({});
 
   const [isOpenAdvanceSearch, setOpenAdvanceSearch] = useState<boolean>(false)
   const [advanceSearch, setAdvanceSearch] = useState<{ topic: string, condition: string, text: string }[]>([
@@ -45,6 +46,10 @@ export default function Table2WithSearch<R extends GridValidRowModel>({
   const onCloseAdvanceSearch = () => {
     console.log("[Table2WithSearch] @onCloseAdvanceSearch >>>")
     setOpenAdvanceSearch(false)
+  }
+
+  const onChangeHiddenColumn = (newHiddenCols : { [field: string]: boolean }) => {
+    setHiddenColumns(newHiddenCols);
   }
 
   const handleClickAdd = () => {
@@ -75,8 +80,14 @@ export default function Table2WithSearch<R extends GridValidRowModel>({
             >
               {searchTypesOptions.map(
                 (item, index) => (
-                <MenuItem key={index} value={item.field}>{item.headerName}</MenuItem>
-              ))}
+                
+                  hiddenColumns.hasOwnProperty(item.field) && hiddenColumns[item.field] === false)? <MenuItem key={index} value={item.field}>
+                  {
+                  item.headerName}
+                  </MenuItem> : <div key={index} >
+                  
+                  </div> 
+              )}
             </Select>
           </FormControl>
           <TextField
@@ -126,7 +137,7 @@ export default function Table2WithSearch<R extends GridValidRowModel>({
                       })}
                     >
                       {searchTypesOptions.map((item, index) => (
-                        <MenuItem key={index} value={item.field}>{item.headerName}</MenuItem>
+                        <MenuItem key={index} value={""}>{item.headerName}</MenuItem>
                       ))}
                     </Select>
                   </FormControl>

@@ -10,10 +10,12 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import { ActionFunction } from 'react-router-dom';
 
 type ButtonProps = {
     title: string;
-    options: string[]
+    options: string[];
+    // onItemClick: () => void
   };
    
 
@@ -92,7 +94,10 @@ export default function ActionButton(props: ButtonProps) {
           >
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
-                <MenuList id="split-button-menu" className="center items-center flex items-center justify-center" autoFocusItem>
+                <MenuList id="split-button-menu" className="center items-center flex items-center justify-center" autoFocusItem 
+                // onClick = {props.onItemClick}
+                >
+                  
                   {props.options.map((option, index) => (
                     <MenuItem
                       key={option}
@@ -113,3 +118,45 @@ export default function ActionButton(props: ButtonProps) {
     </div>
   );
 }
+/*
+            "accountId" to rs.getString("accountId"),
+            "leadsId" to rs.getString("leadsId"),
+            "attachment_id" to rs.getString("attachment_id"),
+            "company_name" to rs.getString("company_name"),
+            "leadsOwner" to rs.getString("leadsOwner"),
+            "industry" to rs.getString("industry"),
+            "website" to rs.getString("website"),
+            "skypeId" to rs.getString("skypeId"),
+            "twitter" to rs.getString("twitter"),
+            "annualRevenue" to rs.getString("annualRevenue"),
+
+            "noEmployees" to rs.getString("noEmployees"),
+            "followUpFlag" to rs.getString("followUpFlag"),
+            "followUpDate" to rs.getString("followUpDate"),
+            "followUpNote" to rs.getString("followUpNote"),
+            "favoriteFlag" to rs.getString("favoriteFlag"),
+            "country" to rs.getString("country"),
+            "postal_code" to rs.getString("postal_code"),
+            "province" to rs.getString("province"),
+            "city" to rs.getString("city"),
+            "address" to rs.getString("address"),
+            "note" to rs.getString("note"),
+            "taxId" to rs.getString("taxId"),
+
+            "billingTel" to rs.getString("billingTel"),
+            "billingContact" to rs.getString("billingContact"),
+            "billingMail" to rs.getString("billingMail"),
+            "billingCountry" to rs.getString("billingCountry"),
+            "billingPostalCode" to rs.getString("billingPostalCode"),
+            "billingProvince" to rs.getString("billingProvince"),
+            "billingCity" to rs.getString("billingCity"),
+            "billingAddress" to rs.getString("billingAddress"),
+            "billingNote" to rs.getString("billingNote"),
+            "hideFlag" to rs.getString("hideFlag"),
+            "createdBy" to rs.getString("createdBy"),
+
+            "updatedBy" to rs.getString("updatedBy"),
+            "createdDate" to rs.getString("createdDate"),
+            "updatedDate" to rs.getString("updatedDate"),
+            "refId" to rs.getString("refId"),
+*/
