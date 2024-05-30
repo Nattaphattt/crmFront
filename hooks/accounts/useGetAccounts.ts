@@ -6,7 +6,7 @@ type Props = {}
 
 export default function useGetAccounts() {
   const {data, isLoading, isError} = useQuery<IAccount[], { message: string }>({
-    queryKey: ["getString"],
+    queryKey: ["getAccounts"],
     queryFn: async () => await getAccountApi()
   })
   return {data, isLoading, isError}

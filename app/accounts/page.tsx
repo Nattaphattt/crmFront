@@ -152,7 +152,12 @@ export default function page({}: Props) {
     const columns :GridColDef<any>[] = [
       createColumn('companyName', 'Company name', 200,),
       createColumn('contactPerson', 'Contact person', 200,),
-      createColumn('accountStatus', 'Account Status', 200,),
+      createColumn('accountStatus', 'Account Status', 200,{
+        renderCell: (params) => (
+          
+            <p className = {params.value === "Off"? "text-red-500" : "text-green-500"}>{params.value}</p>
+        ),
+      }),
       createColumn('favorite', 'Favorite', 200, {
         renderCell: (params) => (
           
@@ -165,9 +170,9 @@ export default function page({}: Props) {
       createColumn('followUp', 'Follow up', 200, {
         renderCell: (params) => (
           
-            params.value === "y"?
+            params.value === "Y"?
             <Button className='bg-[#a69deb] rounded-full' variant="text">Follow Up</Button>
-            : <p>{params.value}</p>
+            : <p></p>
         ),
       }),
       createColumn('accountOwner', 'Account Owner', 200,),
@@ -222,12 +227,33 @@ export default function page({}: Props) {
           favorite: item.favoriteFlag,
           followUp: item.followUpFlag,
           accountOwner: item.createdBy,
-          updatedTime: item.updatedDate
+          updatedTime: dateConverter(item.updatedDate!!)
         })) || [])
       }
     
       const handleClickAdd = () => {
         setOpenModalQuickCreate(true)
+      }
+
+      const dateConverter = (dateStr: string) => {
+        const date: Date = new Date(dateStr)
+
+        let day = date.getDate();
+        let month = date.getMonth() + 1; 
+        let year = date.getFullYear();
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        
+
+        let formattedDay = String(day).padStart(2, '0');
+        let formattedMonth = String(month).padStart(2, '0');
+        let formattedHours = String(hours).padStart(2, '0');
+        let formattedMinutes = String(minutes).padStart(2, '0');
+
+        let formattedDateString = `${formattedDay}/${formattedMonth}/${year} ${formattedHours}:${formattedMinutes}`;
+
+        return formattedDateString;
+
       }
     
       const handleSearchChange = (value: string) => {

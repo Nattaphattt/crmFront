@@ -1,4 +1,4 @@
-import { DataGrid, GridColDef, GridColumnVisibilityModel, GridRowsProp, GridValidRowModel } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRowsProp, GridValidRowModel } from "@mui/x-data-grid";
 import NoRowsOverlay from "./NoRowOverlay";
 import { Box, Checkbox, } from "@mui/material";
 import Image from "next/image";
@@ -12,7 +12,7 @@ import { CustomColumnDialog } from "./CustomColumnDialog";
 /**
  * extend table Column type for custom order and visibility
  */
-export type CustomTableColumnType<R extends GridValidRowModel> = GridColDef<R> & { id: number, order: number, show: boolean, required?: boolean, isHidden?: boolean }
+export type CustomTableColumnType<R extends GridValidRowModel> = GridColDef<R> & { id: number, order: number, show: boolean, required?: boolean }
 
 /**
  * props type for Table2 Component
@@ -139,11 +139,12 @@ export type Table2Props<R extends GridValidRowModel> = {
   */
   showViewButton?: boolean;
 
-  //added later by nattaphat
-  hiddenColumns: GridColumnVisibilityModel;
+  hiddenColumns: {[field: string]: boolean};
 
-  onChangeHiddenColumn(column: { [field: string]: boolean }): void;
+  
+  setHiddenColumns: (value: {[field: string]: boolean} | undefined) => void
 };
+
 export default function Table2<R extends GridValidRowModel>({
   columns = [],
   requiredColumn,
@@ -164,12 +165,12 @@ export default function Table2<R extends GridValidRowModel>({
   idKey = 'id',
   showViewButton = true,
   hiddenColumns,
-  onChangeHiddenColumn
+  setHiddenColumns
 }: Table2Props<R>) {
   const [selectedRows, setSelectedRows] = useState<R[]>([]) // NOTE: old logic for multi-selection
   const [selectedRow, setSelectedRow] = useState<R | undefined>()
   const [customColumns, setCustomColumns] = useState<Array<CustomTableColumnType<R>>>([])
-  
+  // const [hiddenColumns, setHiddenColumns] = useState<{ [field: string]: boolean }>();
 
   const [isOpenDialog, setOpenDialog] = useState<boolean>(false)
 
@@ -227,8 +228,6 @@ export default function Table2<R extends GridValidRowModel>({
       )
     }));
   }
-
-  console.log(hiddenColumns)
 
   const mergedColumns: GridColDef<R>[] = [
     ...fixColumns,
@@ -357,7 +356,7 @@ export default function Table2<R extends GridValidRowModel>({
         onConfirm={(newColumns, hiddenColumns) => {
           setOpenDialog(false);
           setCustomColumns(newColumns);
-          onChangeHiddenColumn(hiddenColumns!!)
+          setHiddenColumns(hiddenColumns)
         }}
         onClear={() => {
           setOpenDialog(false);
