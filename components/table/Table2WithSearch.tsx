@@ -38,6 +38,8 @@ export default function Table2WithSearch<R extends GridValidRowModel>({
   ])
   const [visibilityOverrideCols, setVisibilityOverrideCols] = useState<boolean[]>([])
   const [hiddenColumns, setHiddenColumns] = useState<{ [field: string]: boolean }>();
+  
+  const [hideAnyColumns, setHideAnyColumns] = useState<boolean>(false)
 
 
   const onClickAdvanceSearch = () => {
@@ -68,6 +70,10 @@ export default function Table2WithSearch<R extends GridValidRowModel>({
       setVisibilityOverrideCols([...visibilityOverrideCols, false])
     }
   }
+
+  console.log(hideAnyColumns)
+
+
   return (
     <>
       <Box className="flex items-center justify-between mb-4">
@@ -81,9 +87,10 @@ export default function Table2WithSearch<R extends GridValidRowModel>({
               value={searchType}
               onChange={(e) => onSearchTypeChange(e.target.value || '')}
             >
-              {searchTypesOptions.map(
-                (item, index) => (
-                <MenuItem key={index} value={item.field}>{item.headerName}</MenuItem>
+              {searchTypesOptions.map((item, index) => (
+                hideAnyColumns === false || (hiddenColumns && (!(item.field in hiddenColumns))) ?  (
+                  <MenuItem key={index} value={item.field}>{item.headerName}</MenuItem>
+                ): <p key={index}></p>
               ))}
             </Select>
           </FormControl>
@@ -133,10 +140,11 @@ export default function Table2WithSearch<R extends GridValidRowModel>({
                         return newAvs
                       })}
                     >
+                      
                       {searchTypesOptions.map((item, index) => (
-                        hiddenColumns && !(item.field in hiddenColumns) ?  (
+                        hideAnyColumns === false || (hiddenColumns && (!(item.field in hiddenColumns))) ?  (
                           <MenuItem key={index} value={item.field}>{item.headerName}</MenuItem>
-                        ): false
+                        ): <p key={index}></p>
                       ))}
                     </Select>
                   </FormControl>
@@ -217,7 +225,7 @@ export default function Table2WithSearch<R extends GridValidRowModel>({
       {slotAboveTable && <>{slotAboveTable}</>}
 
       <Table2 { ...table2Props}  
-      hiddenColumns = {hiddenColumns!!} setHiddenColumns = {setHiddenColumns} />
+      hiddenColumns = {hiddenColumns!!} setHiddenColumns = {setHiddenColumns} hideAnyColumn = {hideAnyColumns} setHideAnyColumn={setHideAnyColumns}/>
     </>
   )
 }

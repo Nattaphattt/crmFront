@@ -29,10 +29,10 @@ const mockData: IAccount[] =
     companyName: "yomemibas",
     billingContact: "oh yes",// assume it's contact person
     accountStatus: "ok",
-    favoriteFlag: "y",
-    followUpFlag: "y",
+    favoriteFlag: "Y",
+    followUpFlag: "N",
     createdBy: "wowwow",
-    updatedDate: "27/05/2024 09:30",
+    updatedDate: "2024-08-21 13:23:44.000",
 
     
   },
@@ -41,10 +41,10 @@ const mockData: IAccount[] =
     companyName: "dadiamkaming",
     billingContact: "omaygod",// assume it's contact person
     accountStatus: "ok",
-    favoriteFlag: "y",
-    followUpFlag: "y",
+    favoriteFlag: "N",
+    followUpFlag: "Y",
     createdBy: "wowwow",
-    updatedDate: "27/05/2024 09:30",
+    updatedDate: "2024-05-27 13:23:44.000",
 
     
   },
@@ -53,10 +53,10 @@ const mockData: IAccount[] =
     companyName: "bundaramah",
     billingContact: "oh yes",// assume it's contact person
     accountStatus: "ok",
-    favoriteFlag: "y",
-    followUpFlag: "y",
+    favoriteFlag: "Y",
+    followUpFlag: "Y",
     createdBy: "wowwow",
-    updatedDate: "27/05/2024 09:30",
+    updatedDate: "2024-11-27 21:23:44.000",
 
     
   },
@@ -65,10 +65,10 @@ const mockData: IAccount[] =
     companyName: "aaa",
     billingContact: "oh yes",// assume it's contact person
     accountStatus: "ok",
-    favoriteFlag: "y",
-    followUpFlag: "y",
+    favoriteFlag: "N",
+    followUpFlag: "N",
     createdBy: "wowwow",
-    updatedDate: "27/05/2024 09:30",
+    updatedDate: "2024-05-27 13:23:44.000",
 
     
   },
@@ -77,10 +77,10 @@ const mockData: IAccount[] =
     companyName: "bundaramah",
     billingContact: "oh yes",// assume it's contact person
     accountStatus: "ok",
-    favoriteFlag: "y",
-    followUpFlag: "y",
+    favoriteFlag: "N",
+    followUpFlag: "Y",
     createdBy: "wowwow",
-    updatedDate: "27/05/2024 09:30",
+    updatedDate: "2024-05-27 13:23:44.000",
 
     
   },
@@ -89,10 +89,10 @@ const mockData: IAccount[] =
     companyName: "aaa",
     billingContact: "oh yes",// assume it's contact person
     accountStatus: "ok",
-    favoriteFlag: "y",
-    followUpFlag: "y",
+    favoriteFlag: "Y",
+    followUpFlag: "Y",
     createdBy: "wowwow",
-    updatedDate: "27/05/2024 09:30",
+    updatedDate: "2024-05-27 13:23:44.000",
 
     
   },
@@ -101,10 +101,10 @@ const mockData: IAccount[] =
     companyName: "bundaramah",
     billingContact: "oh yes",// assume it's contact person
     accountStatus: "ok",
-    favoriteFlag: "y",
-    followUpFlag: "y",
+    favoriteFlag: "N",
+    followUpFlag: "N",
     createdBy: "wowwow",
-    updatedDate: "27/05/2024 09:30",
+    updatedDate: "2024-05-27 13:23:44.000",
 
     
   },
@@ -113,10 +113,10 @@ const mockData: IAccount[] =
     companyName: "aaa",
     billingContact: "Rick",// assume it's contact person
     accountStatus: "ok",
-    favoriteFlag: "y",
-    followUpFlag: "y",
+    favoriteFlag: "N",
+    followUpFlag: "N",
     createdBy: "wowwow",
-    updatedDate: "27/05/2024 09:30",
+    updatedDate: "2024-05-27 13:23:44.000",
 
     
   }
@@ -171,7 +171,7 @@ export default function page({}: Props) {
         renderCell: (params) => (
           
             params.value === "Y"?
-            <Button className='bg-[#a69deb] rounded-full' variant="text">Follow Up</Button>
+            <Button className='bg-[#a69deb] rounded-full text-white h-6 my-2 text-md' variant="text">Follow Up</Button>
             : <p></p>
         ),
       }),
@@ -180,12 +180,12 @@ export default function page({}: Props) {
       
     ];
 // 
-    const {data, isLoading, isError} = useGetAccounts();
-    const dataACS:IAccount[] = data!!
-    const isLoadingAccounts = isLoading
-    // const dataACS: IAccount[] = mockData;
-    // const isError = false
-    // const isLoadingAccounts = false
+    // const {data, isLoading, isError} = useGetAccounts();
+    // const dataACS:IAccount[] = data!!
+    // const isLoadingAccounts = isLoading
+    const dataACS: IAccount[] = mockData;
+    const isError = false
+    const isLoadingAccounts = false
 
     const mockAccountTypes = [
       { id: 1, value: 1, name: "All Accounts" },

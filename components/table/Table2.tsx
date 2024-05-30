@@ -142,7 +142,11 @@ export type Table2Props<R extends GridValidRowModel> = {
   hiddenColumns: {[field: string]: boolean};
 
   
-  setHiddenColumns: (value: {[field: string]: boolean} | undefined) => void
+  setHiddenColumns: (value: {[field: string]: boolean} | undefined) => void;
+
+  hideAnyColumn: boolean;
+
+  setHideAnyColumn: (value: boolean) => void;
 };
 
 export default function Table2<R extends GridValidRowModel>({
@@ -165,7 +169,9 @@ export default function Table2<R extends GridValidRowModel>({
   idKey = 'id',
   showViewButton = true,
   hiddenColumns,
-  setHiddenColumns
+  setHiddenColumns,
+  hideAnyColumn,
+  setHideAnyColumn
 }: Table2Props<R>) {
   const [selectedRows, setSelectedRows] = useState<R[]>([]) // NOTE: old logic for multi-selection
   const [selectedRow, setSelectedRow] = useState<R | undefined>()
@@ -357,6 +363,9 @@ export default function Table2<R extends GridValidRowModel>({
           setOpenDialog(false);
           setCustomColumns(newColumns);
           setHiddenColumns(hiddenColumns)
+
+          if (Object.keys(hiddenColumns!!).length < columns.length) setHideAnyColumn(true)
+          else setHideAnyColumn(false)
         }}
         onClear={() => {
           setOpenDialog(false);
